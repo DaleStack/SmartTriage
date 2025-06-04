@@ -32,4 +32,4 @@ class TriageModel(models.Model):
     surgery = models.BooleanField(default=False)  # If patient had surgery in the past 30 days
 
     def __str__(self):
-        return f"Triage Note - {self.full_name} ({self.submitted_at.strftime('%Y-%m-%d %H:%M')})"
+        return f"Triage Note - {self.full_name} ({self.submitted_at})"
