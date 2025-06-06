@@ -11,7 +11,6 @@ class DoctorRegister(UserCreationForm):
         fields = ['username', 'email']
 
 
-
 class DoctorLogin(forms.Form):
     username = forms.CharField(max_length=150, required=True)
     password = forms.CharField(widget=forms.PasswordInput, required=True)
