@@ -31,5 +31,8 @@ class TriageModel(models.Model):
     current_medications = models.TextField(blank=True)
     surgery = models.BooleanField(default=False)  # If patient had surgery in the past 30 days
 
+    # AI-generated SOAP note
+    ai_soap = models.TextField(blank=True, null=True)
+
     def __str__(self):
         return f"Triage Note - {self.full_name} ({self.submitted_at})"
