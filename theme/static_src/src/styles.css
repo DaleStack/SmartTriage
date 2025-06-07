@@ -12,6 +12,16 @@
 @layer components {
   .button-outline {
     @apply border px-2 py-1 border-white/30 rounded-lg bg-white/20 hover:bg-cyan-500 
-    transition-all duration-300 cursor-pointer hover:shadow-sm hover:shadow-cyan-400/50
+    transition-all duration-300 cursor-pointer hover:shadow-sm hover:shadow-cyan-400/50 active:scale-98
   }
+
+  .button-primary {
+    @apply border px-2 py-2 border-white/30 rounded-lg bg-cyan-500
+    transition-all duration-300 cursor-pointer text-black active:scale-98
+  }
+
+  /*INPUT*/
+    .ch-input {
+      @apply bg-white/10 border border-white/30 rounded-md py-1 px-2 w-full
+    }
 }

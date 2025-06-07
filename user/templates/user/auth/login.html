@@ -1,0 +1,84 @@
+{% extends './_base.html' %}
+{% load static %}
+{% block content %}
+<!--CONTAINER-->
+<div class="bg-black min-h-screen text-white px-2" style="font-family: 'Roboto', sans-serif; font-weight: 400; font-style: normal;">
+    <div class="flex flex-col justify-center items-center my-8 space-y-2 text-center">
+        <h1 class="text-3xl" style="font-weight: 800;">Healthcare Provider Login</h1>
+        <p class="text-white/50">Access your provider dashboard and patient management</p>
+    </div>
+
+    <!--FORM CONTAINER-->
+    <div class="flex justify-center items-center">
+        <div class="bg-white/10 block py-4 px-10 rounded-xl border border-white/20">
+
+            <div class="my-4">
+                <p class="text-2xl" style="font-weight: 800;">Sign in</p>
+                <p class="text-white/50">Enter your credentials to access your provider account</p>
+            </div>
+
+            <form action="{% url 'login' %}" method="POST" class="w-full space-y-5">
+                {% csrf_token %}
+
+                <div class="space-y-2">
+                    <label class="flex items-center" for="username">
+                        <img src="{% static 'user/images/username.svg' %}" alt="username"> 
+                        <p>Username</p>
+                    </label>
+                    <input id="username" name="username" type="text" class="ch-input" placeholder="Enter your username" required>
+                </div>
+
+                <div>
+                    <label class="flex items-center space-y-2" for="password">
+                        <img src="{% static 'user/images/password.svg' %}" alt="password">
+                        <p>Password</p>
+                    </label>
+                    <input id="password" name="password" type="password" class="ch-input" placeholder="******" required>
+                    
+                </div>
+                {% if form.non_field_errors %}
+                    <p class="text-red-500 text-sm">
+                        {% for error in form.non_field_errors %}
+                        {{ error }}
+                        {% endfor %}
+                    </p>
+                {% endif %}
+
+                <button id="submit-btn" type="submit" class="button-primary w-full disabled:opacity-40">
+                    Sign in
+                </button>
+            </form>
+
+            <p class="text-center my-5" href="">Need provider access? <a class="text-cyan-400" href="{% url 'register' %}">Register here</a></p>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+    const submitBtn = document.getElementById('submit-btn');
+
+    const inputs = Array.from(form.querySelectorAll('input')).filter(
+        input => input.type !== 'hidden' && input.type !== 'submit'
+    );
+
+    function checkInputsFilled() {
+        const allFilled = inputs.every(input => input.value.trim() !== '');
+        submitBtn.disabled = !allFilled;
+    }
+
+    inputs.forEach(input => {
+        input.addEventListener('input', checkInputsFilled);
+    });
+
+    form.addEventListener('submit', function () {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Signing in...';
+    });
+
+    checkInputsFilled(); // Initial check
+});
+</script>
+
+{% endblock %}

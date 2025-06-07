@@ -30,10 +30,6 @@ def login_view(request):
             login(request, user)
             messages.success(request, f"Welcome back Dr. {user.username}!")
             return redirect('dashboard') 
-        else:
-            for field, errors in form.errors.items():
-                for error in errors:
-                    messages.error(request, f"{field.capitalize()}: {error}")
     else:
         form = DoctorLogin()
     return render(request, 'user/auth/login.html', {'form': form})
