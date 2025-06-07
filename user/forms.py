@@ -8,7 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 class DoctorRegister(UserCreationForm):
     class Meta:
         model = DoctorModel
-        fields = ['username', 'email']
+        fields = ['username', 'email', 'first_name', 'last_name']
 
 
 class DoctorLogin(forms.Form):
