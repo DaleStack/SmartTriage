@@ -18,7 +18,7 @@ def register_view(request):
                     messages.error(request, f"{field.capitalize()}: {error}")
     else:
         form = DoctorRegister()
-    return render(request, 'user/register.html', {'form': form})
+    return render(request, 'user/auth/register.html', {'form': form})
 
 
 # Doctor login view
@@ -36,7 +36,7 @@ def login_view(request):
                     messages.error(request, f"{field.capitalize()}: {error}")
     else:
         form = DoctorLogin()
-    return render(request, 'user/login.html', {'form': form})
+    return render(request, 'user/auth/login.html', {'form': form})
 
 
 # Doctor logout view

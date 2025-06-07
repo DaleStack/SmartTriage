@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 /**
   * A catch-all path to Django template files, JavaScript, and Python files
   * that contain Tailwind CSS classes and will be scanned by Tailwind to generate the final CSS file.
@@ -8,3 +8,10 @@
   * the scope of this path.
   */
 @source "../../../**/*.{html,py,js}";
+
+@layer components {
+  .button-outline {
+    @apply border px-2 py-1 border-white/30 rounded-lg bg-white/20 hover:bg-cyan-500 
+    transition-all duration-300 cursor-pointer hover:shadow-sm hover:shadow-cyan-400/50
+  }
+}
