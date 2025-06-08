@@ -12,7 +12,7 @@
           <button onclick="toggleDropdown()" class="cursor-pointer underline transition-all duration-300 px-2 hover:bg-cyan-300/20 rounded">{{user.username}}</button>
           <div id="dropdownMenu" class="ch-dropdown ch-dropdown-end hidden">
             <div>
-              <a href="#" class="ch-dropdown-item">Triage View</a>
+              <a href="{% url 'triage' %}" class="ch-dropdown-item">Triage View</a>
               <a href="{% url 'logout' %}" class="ch-dropdown-item hover:!bg-red-400/20">Logout</a>
             </div>
           </div>

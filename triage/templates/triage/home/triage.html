@@ -1,0 +1,90 @@
+{% extends './_base.html' %}
+
+{% block content %}
+<style>
+    @-webkit-keyframes shake-bottom {
+  0%,
+  100% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+  }
+  10% {
+    -webkit-transform: rotate(2deg);
+            transform: rotate(2deg);
+  }
+  20%,
+  40%,
+  60% {
+    -webkit-transform: rotate(-4deg);
+            transform: rotate(-4deg);
+  }
+  30%,
+  50%,
+  70% {
+    -webkit-transform: rotate(4deg);
+            transform: rotate(4deg);
+  }
+  80% {
+    -webkit-transform: rotate(-2deg);
+            transform: rotate(-2deg);
+  }
+  90% {
+    -webkit-transform: rotate(2deg);
+            transform: rotate(2deg);
+  }
+}
+@keyframes shake-bottom {
+  0%,
+  100% {
+    -webkit-transform: rotate(0deg);
+            transform: rotate(0deg);
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+  }
+  10% {
+    -webkit-transform: rotate(2deg);
+            transform: rotate(2deg);
+  }
+  20%,
+  40%,
+  60% {
+    -webkit-transform: rotate(-4deg);
+            transform: rotate(-4deg);
+  }
+  30%,
+  50%,
+  70% {
+    -webkit-transform: rotate(4deg);
+            transform: rotate(4deg);
+  }
+  80% {
+    -webkit-transform: rotate(-2deg);
+            transform: rotate(-2deg);
+  }
+  90% {
+    -webkit-transform: rotate(2deg);
+            transform: rotate(2deg);
+  }
+}
+
+    .shake-bottom {
+	-webkit-animation: shake-bottom 1s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
+	        animation: shake-bottom 3s cubic-bezier(0.455, 0.030, 0.515, 0.955) infinite both;
+}
+</style>
+
+<div class="bg-black min-h-screen text-white px-2 mt-[30vh]" style="font-family: 'Roboto', sans-serif; font-weight: 400; font-style: normal;">
+    <div class="flex flex-col justify-center items-center my-8 space-y-2 text-center">
+        <h1 class="text-4xl md:text-6xl" style="font-weight: 800;">Get the Care You Need</h1>
+        <p class="text-white/50 md:w-140">Answer a few quick questions about your symptoms and get instant guidance on your next steps.</p>
+    </div>
+
+    <div class="flex justify-center items-center">
+        <a class="button-primary !font-bold !text-2xl shake-bottom">
+            Start Triage
+        </a>
+    </div>
+</div>
+{% endblock %}
