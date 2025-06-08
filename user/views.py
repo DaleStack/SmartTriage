@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .forms import DoctorRegister, DoctorLogin
+from triage.models import TriageModel
+from django.contrib.auth.decorators import login_required
+
+# AUTHENTICATION
 
 # Doctor registration view
 def register_view(request):
@@ -28,7 +32,7 @@ def login_view(request):
         if form.is_valid():
             user = form.cleaned_data['user']
             login(request, user)
-            messages.success(request, f"Welcome back Dr. {user.username}!")
+            messages.success(request, f"Welcome back Dr. {user.last_name}!")
             return redirect('dashboard') 
     else:
         form = DoctorLogin()
@@ -40,3 +44,19 @@ def logout_view(request):
     logout(request)
     messages.success(request, "You have been logged out.")
     return redirect('login')  
+
+
+# DASHBOARD VIEW
+
+#Doctor Dashboard
+@login_required
+def dashboard_view(request):
+    user = request.user
+
+    return render(request, 'user/dashboard/dashboard.html', {'user':user})
+
+#Patient List
+@login_required
+def dashboard_patient_list(request):
+    patients = TriageModel.objects.filter(assigned_doctor=request.user)
+    return render(request, 'user/dashboard/partials/patient_list.html', {'patients': patients})

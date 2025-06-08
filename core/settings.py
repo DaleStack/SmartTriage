@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_browser_reload',
+    "django_htmx",
     'tailwind',
     'theme',
     'triage',
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "django_browser_reload.middleware.BrowserReloadMiddleware",
+    "django_htmx.middleware.HtmxMiddleware",
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -145,3 +147,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = "user.DoctorModel"
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+LOGIN_URL = 'login'  
+LOGIN_REDIRECT_URL = 'dashboard'  # Redirect here after successful login
+LOGOUT_REDIRECT_URL = 'login'  # After logout, redirect to login page

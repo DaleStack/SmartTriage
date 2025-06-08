@@ -24,4 +24,62 @@
     .ch-input {
       @apply bg-white/10 border border-white/30 rounded-md py-1 px-2 w-full
     }
+
+    /* DROPDOWN */
+.ch-dropdown {
+  @apply w-40 bg-black  border p-2 border-white/20 rounded shadow-md absolute z-10;
+}
+
+/* POSITIONING */
+
+/* Dropdown appears to the left of the button */
+.ch-dropdown-left {
+  @apply right-full top-1/2 transform -translate-y-1/2 mr-2;
+}
+
+/* Dropdown appears to the right of the button */
+.ch-dropdown-right {
+  @apply left-full top-1/2 transform -translate-y-1/2 ml-2;
+}
+
+/* Dropdown appears above the button */
+.ch-dropdown-top {
+  @apply left-1/2 bottom-full transform -translate-x-1/2 mb-2;
+}
+
+/* Dropdown appears centered below the button (default) */
+.ch-dropdown-center {
+  @apply left-1/2 top-full transform -translate-x-1/2 mt-2;
+}
+
+/* Dropdown appears aligned to the end (right) below the button */
+.ch-dropdown-end {
+  @apply right-0 top-full mt-4;
+}
+
+/* DROPDOWN ITEM STYLE */
+.ch-dropdown-item {
+  @apply block px-4 py-2 text-sm text-white hover:bg-white/20 transition-all duration-200 cursor-pointer rounded-sm;
+}
+
+/* ALERT COMPONENT */
+.ch-alert {
+  @apply p-4 rounded-md flex items-start gap-2 text-sm border-none;
+}
+
+.ch-alert-info {
+  @apply bg-cyan-300 text-cyan-700 border ;
+}
+
+.ch-alert-ok {
+  @apply bg-green-300 text-green-700 border ;
+}
+
+.ch-alert-warm {
+  @apply bg-amber-300 text-yellow-800 border ;
+}
+
+.ch-alert-error {
+  @apply bg-red-300 text-red-700 border ;
+}
 }

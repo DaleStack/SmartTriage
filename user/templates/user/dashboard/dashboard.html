@@ -1,0 +1,18 @@
+{% extends './_base.html' %}
+
+{% block content %}
+    <div class="text-white">
+        DASHBOARD
+        {{user.username}}
+    </div>
+
+    <!-- This will auto-load the patient list on page load -->
+<div hx-get="{% url 'dashboard-patient-list' %}" 
+     hx-trigger="load" 
+     hx-target="#patient-container" 
+     hx-swap="innerHTML">
+</div>
+
+
+<div id="patient-container"></div>
+{% endblock %}

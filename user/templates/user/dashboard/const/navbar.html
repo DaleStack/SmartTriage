@@ -1,0 +1,39 @@
+{% load static %}
+<nav style="font-family: 'Roboto', sans-serif; font-weight: 400; font-style: normal;" class="border-b border-white/30 text-white py-3 px-2 lg:px-18 flex justify-between items-center">
+    <div class="flex items-center">
+        <div class="p-1 rounded-full shadow shadow-cyan-300/50">
+            <img src="{% static 'user/images/logo.svg' %}" alt="logo">
+        </div>
+        <p class="text-2xl" style="font-family: 'Roboto', sans-serif; font-weight: 800; font-style: normal;">SmartTriage</p>
+    </div>
+
+    <div>
+        <div class="relative inline-block">
+          <button onclick="toggleDropdown()" class="cursor-pointer underline transition-all duration-300 px-2 hover:bg-cyan-300/20 rounded">{{user.username}}</button>
+          <div id="dropdownMenu" class="ch-dropdown ch-dropdown-end hidden">
+            <div>
+              <a href="#" class="ch-dropdown-item">Triage View</a>
+              <a href="{% url 'logout' %}" class="ch-dropdown-item hover:!bg-red-400/20">Logout</a>
+            </div>
+          </div>
+        </div>
+    </div>
+</nav>
+
+<script>
+    /* DROPDOWN TOGGLE */
+function toggleDropdown() {
+    const menu = document.getElementById("dropdownMenu");
+    menu.classList.toggle("hidden");
+  }
+
+  // Optional: Hide dropdown when clicking outside
+  document.addEventListener("click", function (e) {
+    const menu = document.getElementById("dropdownMenu");
+    const button = e.target.closest("button");
+
+    if (!e.target.closest("#dropdownMenu") && !button) {
+      menu.classList.add("hidden");
+    }
+  });
+</script>
