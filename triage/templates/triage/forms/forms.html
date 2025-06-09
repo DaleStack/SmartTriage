@@ -1,0 +1,9 @@
+{% extends './_base.html' %}
+{% block content %}
+<form method="POST" action="{% url 'triage-form' %}" class="bg-white">
+    {% csrf_token %}
+    {{form.as_p}}
+
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
