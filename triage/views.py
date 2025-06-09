@@ -72,3 +72,4 @@ def triage_form(request):
         form = TriageModelForm()
 
     return render(request, 'triage/forms/forms.html', {'form': form})
+

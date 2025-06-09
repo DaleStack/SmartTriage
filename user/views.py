@@ -52,11 +52,6 @@ def logout_view(request):
 @login_required
 def dashboard_view(request):
     user = request.user
-
     return render(request, 'user/dashboard/dashboard.html', {'user':user})
 
-#Patient List
-@login_required
-def dashboard_patient_list(request):
-    patients = TriageModel.objects.filter(assigned_doctor=request.user)
-    return render(request, 'user/dashboard/partials/patient_list.html', {'patients': patients})
+
