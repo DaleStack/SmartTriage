@@ -24,6 +24,7 @@
     --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
+    --container-3xl: 48rem;
     --text-sm: 0.875rem;
     --text-sm--line-height: calc(1.25 / 0.875);
     --text-2xl: 1.5rem;
@@ -256,8 +257,14 @@
   .my-8 {
     margin-block: calc(var(--spacing) * 8);
   }
+  .mt-4 {
+    margin-top: calc(var(--spacing) * 4);
+  }
   .mt-\[30vh\] {
     margin-top: 30vh;
+  }
+  .mb-10 {
+    margin-bottom: calc(var(--spacing) * 10);
   }
   .ml-4 {
     margin-left: calc(var(--spacing) * 4);
@@ -288,6 +295,9 @@
   }
   .w-full {
     width: 100%;
+  }
+  .max-w-3xl {
+    max-width: var(--container-3xl);
   }
   .flex-1 {
     flex: 1;
@@ -321,20 +331,10 @@
     margin-block-start: calc(calc(var(--spacing) * 2) * var(--tw-space-y-reverse));
     margin-block-end: calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-y-reverse)));
   }
-  :where(.space-y-4 > :not(:last-child)) {
-    --tw-space-y-reverse: 0;
-    margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));
-    margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));
-  }
   :where(.space-y-5 > :not(:last-child)) {
     --tw-space-y-reverse: 0;
     margin-block-start: calc(calc(var(--spacing) * 5) * var(--tw-space-y-reverse));
     margin-block-end: calc(calc(var(--spacing) * 5) * calc(1 - var(--tw-space-y-reverse)));
-  }
-  :where(.space-y-10 > :not(:last-child)) {
-    --tw-space-y-reverse: 0;
-    margin-block-start: calc(calc(var(--spacing) * 10) * var(--tw-space-y-reverse));
-    margin-block-end: calc(calc(var(--spacing) * 10) * calc(1 - var(--tw-space-y-reverse)));
   }
   :where(.space-x-2 > :not(:last-child)) {
     --tw-space-x-reverse: 0;
@@ -388,8 +388,13 @@
   .bg-black {
     background-color: var(--color-black);
   }
-  .bg-cyan-300 {
-    background-color: var(--color-cyan-300);
+  .bg-black\/20 {
+    background-color: color-mix(in srgb, #000 20%, transparent);
+  }
+  @supports (color: color-mix(in lab, red, red)) {
+    .bg-black\/20 {
+      background-color: color-mix(in oklab, var(--color-black) 20%, transparent);
+    }
   }
   .bg-cyan-300\/10 {
     background-color: color-mix(in srgb, oklch(86.5% 0.127 207.078) 10%, transparent);
@@ -399,19 +404,8 @@
       background-color: color-mix(in oklab, var(--color-cyan-300) 10%, transparent);
     }
   }
-  .bg-cyan-300\/30 {
-    background-color: color-mix(in srgb, oklch(86.5% 0.127 207.078) 30%, transparent);
-  }
-  @supports (color: color-mix(in lab, red, red)) {
-    .bg-cyan-300\/30 {
-      background-color: color-mix(in oklab, var(--color-cyan-300) 30%, transparent);
-    }
-  }
   .bg-gray-50 {
     background-color: var(--color-gray-50);
-  }
-  .bg-white {
-    background-color: var(--color-white);
   }
   .bg-white\/10 {
     background-color: color-mix(in srgb, #fff 10%, transparent);

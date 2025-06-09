@@ -37,7 +37,7 @@ def generate_soap_note(data):
     Recent Surgery: {"Yes" if data.get('surgery') else "No"}
 
     Format the response as a SOAP (Subjective, Objective, Assessment, Plan) note.
-    Return the SOAP only, nothing else.
+    Return the SOAP only, nothing else. Don't add any other sentences, just concise SOAP report.
     """
 
     model = genai.GenerativeModel('gemini-2.0-flash')

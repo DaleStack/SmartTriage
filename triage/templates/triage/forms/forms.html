@@ -1,6 +1,7 @@
 {% extends './_base.html' %}
 {% load static %}
 {% block content %}
+
 <!--CONTAINER-->
 <div class="bg-black min-h-screen text-white px-2" style="font-family: 'Roboto', sans-serif; font-weight: 400; font-style: normal;">
     <div class="flex flex-col justify-center items-center my-8 space-y-2 text-center">
@@ -8,59 +9,143 @@
         <p class="text-white/50">Complete all sections below to submit your triage assessment</p>
         <p class="text-white/90 bg-cyan-300/10 border border-cyan-500/50 rounded-lg p-1 flex items-center"> 
             <img class="animate-pulse" src="{% static 'triage/images/info.svg' %}" alt="info">
-            <span>your information is only used for this assessment</span></p>
+            <span>your information is only used for this assessment</span>
+        </p>
     </div>
 
     <!--FORM CONTAINER-->
-    <div class="flex justify-center items-center">
-        <div class="bg-white/10 block py-4 px-10 rounded-xl border border-white/20">
+    <div class="flex justify-center items-center flex-col space-y-5">
+        <div class="w-full max-w-3xl">
 
-            <div class="my-4">
-                <p class="text-2xl" style="font-weight: 800;">Personal Information</p>
-                <p class="text-white/50">Please provide your basic information for our assessment</p>
-            </div>
-
+            <!-- Unified Form Start -->
             <form action="{% url 'triage-form' %}" method="POST" class="w-full space-y-5">
                 {% csrf_token %}
 
-                <div class="flex flex-col md:flex-row md:items-center space-x-2">
-                    <div class="space-y-2 flex-1"> <!-- Added flex-1 -->
-                        <label class="flex items-center" for="full_name">
-                            <p>Full Name</p>
-                        </label>
-                        <input name="full_name" type="text" class="ch-input" placeholder="Enter your full name" required>
+                <!-- PERSONAL INFORMATION -->
+                <div class="bg-white/10 block py-4 px-10 rounded-xl border border-white/20">
+                    <div class="my-4">
+                        <p class="text-2xl" style="font-weight: 800;">Personal Information</p>
+                        <p class="text-white/50">Please provide your basic information for our assessment</p>
                     </div>
 
-                    <div class="space-y-2 flex-1"> <!-- Added flex-1 -->
-                        <label class="flex items-center" for="age">
-                            <p>Age</p>
-                        </label>
-                        <input type="number" name="age" min="0" max="120" placeholder="Enter age" required class="ch-input w-full">
+                    <div class="flex flex-col md:flex-row md:items-center space-x-2">
+                        <div class="space-y-2 flex-1">
+                            <label class="flex items-center" for="full_name">
+                                <p>Full Name</p>
+                            </label>
+                            <input name="full_name" type="text" class="ch-input" placeholder="Enter your full name" required>
+                        </div>
+
+                        <div class="space-y-2 flex-1">
+                            <label class="flex items-center" for="age">
+                                <p>Age</p>
+                            </label>
+                            <input type="number" name="age" min="0" max="120" placeholder="Enter age" required class="ch-input w-full">
+                        </div>
                     </div>
-                </div>
 
-                <div class="flex flex-col gap-2">
-                    <label for="gender">Gender</label>
-                    <select name="gender" class="ch-input" required>
-                        <option class="bg-black"  disabled selected>Select gender...</option>
-                        <option class="bg-black" value="Male">Male</option>
-                        <option class="bg-black" value="Female">Female</option>
-                        <option class="bg-black" value="Other">Other</option>
-                    </select>
-                </div>
+                    <div class="flex flex-col gap-2 mt-4">
+                        <label for="gender">Gender</label>
+                        <select name="gender" class="ch-input" required>
+                            <option class="bg-black" disabled selected>Select gender...</option>
+                            <option class="bg-black" value="Male">Male</option>
+                            <option class="bg-black" value="Female">Female</option>
+                            <option class="bg-black" value="Other">Other</option>
+                        </select>
+                    </div>
 
-                <div class="space-y-2 flex-1"> <!-- Added flex-1 -->
-                        <label class="flex items-center" for="age">
+                    <div class="space-y-2 mt-4">
+                        <label class="flex items-center" for="phone_number">
                             <p>Phone Number</p>
                         </label>
                         <input type="tel" name="phone_number" pattern="[0-9]{10,15}" maxlength="15"
-                        placeholder="Enter phone number" required class="ch-input w-full">
+                            placeholder="Enter phone number" required class="ch-input w-full">
+                    </div>
                 </div>
 
-                <button id="submit-btn" type="submit" class="button-primary w-full disabled:opacity-40">
-                    Sign in
+                <!-- SYMPTOM ASSESSMENT -->
+                <div class="bg-white/10 block py-4 px-10 rounded-xl border border-white/20">
+                    <div class="my-4">
+                        <p class="text-2xl" style="font-weight: 800;">Symptom Assessment</p>
+                        <p class="text-white/50">Tell us about your current symptoms and concerns</p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="flex items-center" for="symptoms">
+                            <p>Symptoms</p>
+                        </label>
+                        <textarea class="w-full border border-white/30 rounded-lg py-4 px-2" name="symptoms" placeholder="Symptoms you have been experiencing..." required></textarea>
+                    </div>
+
+                    <div class="flex flex-col md:flex-row md:items-center space-x-2 mt-4">
+                        <div class="space-y-2 flex-1">
+                            <label class="flex items-center" for="duration">
+                                <p>Duration</p>
+                            </label>
+                            <input name="duration" type="text" class="ch-input" placeholder="How long" required>
+                        </div>
+
+                        <div class="flex flex-col gap-2">
+                            <label for="pain_level">Pain Level</label>
+                            <select name="pain_level" class="ch-input" required>
+                                <option class="bg-black" disabled selected>Pain Level...</option>
+                                <option class="bg-black" value="0">0</option>
+                                <option class="bg-black" value="1">1</option>
+                                <option class="bg-black" value="2">2</option>
+                                <option class="bg-black" value="3">3</option>
+                                <option class="bg-black" value="4">4</option>
+                                <option class="bg-black" value="5">5</option>
+                                <option class="bg-black" value="6">6</option>
+                                <option class="bg-black" value="7">7</option>
+                                <option class="bg-black" value="8">8</option>
+                                <option class="bg-black" value="9">9</option>
+                                <option class="bg-black" value="10">10</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MEDICAL HISTORY -->
+                <div class="bg-white/10 block py-4 px-10 rounded-xl border border-white/20">
+                    <div class="my-4">
+                        <p class="text-2xl" style="font-weight: 800;">Medical History</p>
+                        <p class="text-white/50">Help us understand your medical background for better assessment</p>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="flex items-center" for="existing_conditions">
+                            <p>Existing Conditions</p>
+                        </label>
+                        <textarea class="w-full border border-white/30 rounded-lg py-4 px-2" name="existing_conditions" placeholder="Existing Conditions (Leave blank if none)"></textarea>
+                    </div>
+
+                    <div class="space-y-2 mt-4">
+                        <label class="flex items-center" for="allergies">
+                            <p>Allergies</p>
+                        </label>
+                        <textarea class="w-full border border-white/30 rounded-lg py-4 px-2" name="allergies" placeholder="Allergies (Leave blank if none)"></textarea>
+                    </div>
+
+                    <div class="space-y-2 mt-4">
+                        <label class="flex items-center" for="current_medications">
+                            <p>Current Medications</p>
+                        </label>
+                        <textarea class="w-full border border-white/30 rounded-lg py-4 px-2" name="current_medications" placeholder="Current Medications (Leave blank if none)"></textarea>
+                    </div>
+
+                    <div class="space-x-2 flex items-center mt-4">
+                        <input type="checkbox" name="surgery" class="bg-black/20">
+                        <p>Had surgery in the past 30 days?</p>
+                    </div>
+                </div>
+
+                <!-- SUBMIT -->
+                <button id="submit-btn" type="submit" class="button-primary w-full disabled:opacity-40 mb-10">
+                    Submit Assessment
                 </button>
             </form>
+            <!-- End Unified Form -->
+
         </div>
     </div>
 </div>
@@ -70,13 +155,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('form');
     const submitBtn = document.getElementById('submit-btn');
 
-
     form.addEventListener('submit', function () {
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Signing in...';
+        submitBtn.textContent = 'Submitting...';
     });
-
-    checkInputsFilled(); // Initial check
 });
 </script>
 
