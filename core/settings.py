@@ -136,7 +136,8 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'user/static'
+    BASE_DIR / 'user/static',
+    BASE_DIR / 'triage/static',
 ]
 
 # Default primary key field type

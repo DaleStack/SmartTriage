@@ -1,9 +1,83 @@
 {% extends './_base.html' %}
+{% load static %}
 {% block content %}
-<form method="POST" action="{% url 'triage-form' %}" class="bg-white">
-    {% csrf_token %}
-    {{form.as_p}}
+<!--CONTAINER-->
+<div class="bg-black min-h-screen text-white px-2" style="font-family: 'Roboto', sans-serif; font-weight: 400; font-style: normal;">
+    <div class="flex flex-col justify-center items-center my-8 space-y-2 text-center">
+        <h1 class="text-3xl" style="font-weight: 800;">Health Assessment</h1>
+        <p class="text-white/50">Complete all sections below to submit your triage assessment</p>
+        <p class="text-white/90 bg-cyan-300/10 border border-cyan-500/50 rounded-lg p-1 flex items-center"> 
+            <img class="animate-pulse" src="{% static 'triage/images/info.svg' %}" alt="info">
+            <span>your information is only used for this assessment</span></p>
+    </div>
 
-    <button type="submit">Submit</button>
-</form>
+    <!--FORM CONTAINER-->
+    <div class="flex justify-center items-center">
+        <div class="bg-white/10 block py-4 px-10 rounded-xl border border-white/20">
+
+            <div class="my-4">
+                <p class="text-2xl" style="font-weight: 800;">Personal Information</p>
+                <p class="text-white/50">Please provide your basic information for our assessment</p>
+            </div>
+
+            <form action="{% url 'triage-form' %}" method="POST" class="w-full space-y-5">
+                {% csrf_token %}
+
+                <div class="flex flex-col md:flex-row md:items-center space-x-2">
+                    <div class="space-y-2 flex-1"> <!-- Added flex-1 -->
+                        <label class="flex items-center" for="full_name">
+                            <p>Full Name</p>
+                        </label>
+                        <input name="full_name" type="text" class="ch-input" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="space-y-2 flex-1"> <!-- Added flex-1 -->
+                        <label class="flex items-center" for="age">
+                            <p>Age</p>
+                        </label>
+                        <input type="number" name="age" min="0" max="120" placeholder="Enter age" required class="ch-input w-full">
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="gender">Gender</label>
+                    <select name="gender" class="ch-input" required>
+                        <option class="bg-black"  disabled selected>Select gender...</option>
+                        <option class="bg-black" value="Male">Male</option>
+                        <option class="bg-black" value="Female">Female</option>
+                        <option class="bg-black" value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="space-y-2 flex-1"> <!-- Added flex-1 -->
+                        <label class="flex items-center" for="age">
+                            <p>Phone Number</p>
+                        </label>
+                        <input type="tel" name="phone_number" pattern="[0-9]{10,15}" maxlength="15"
+                        placeholder="Enter phone number" required class="ch-input w-full">
+                </div>
+
+                <button id="submit-btn" type="submit" class="button-primary w-full disabled:opacity-40">
+                    Sign in
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('form');
+    const submitBtn = document.getElementById('submit-btn');
+
+
+    form.addEventListener('submit', function () {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Signing in...';
+    });
+
+    checkInputsFilled(); // Initial check
+});
+</script>
+
 {% endblock %}
