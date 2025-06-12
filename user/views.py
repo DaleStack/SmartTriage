@@ -52,6 +52,9 @@ def logout_view(request):
 @login_required
 def dashboard_view(request):
     user = request.user
-    return render(request, 'user/dashboard/dashboard.html', {'user':user})
+
+    triage_count = TriageModel.objects.filter(assigned_doctor=user).order_by("-submitted_at").count
+
+    return render(request, 'user/dashboard/dashboard.html', {'user':user, 'triage_count':triage_count})
 
 

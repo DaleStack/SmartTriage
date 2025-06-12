@@ -34,7 +34,7 @@ def generate_soap_note(data):
     Existing Conditions: {data.get('existing_conditions')}
     Allergies: {data.get('allergies')}
     Current Medications: {data.get('current_medications')}
-    Recent Surgery: {"Yes" if data.get('surgery') else "No"}
+    Recent Surgery: {"Yes" if data.get('surgery') else "No"} in the past 30 days
 
     Format the response as a SOAP (Subjective, Objective, Assessment, Plan) note.
     Return the SOAP only, nothing else. Don't add any other sentences, just concise SOAP report.
