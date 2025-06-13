@@ -1,3 +1,52 @@
-<div class="text-white">
-     {{ triage_count }}
+{% load static %}
+<div style="font-family: 'Roboto', sans-serif; font-weight: 400; font-style: normal;" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-6 px-4 lg:px-18">
+
+    <!-- Total Triage Count -->
+    <div class="bg-white/10 rounded-xl shadow p-6 flex items-center justify-between">
+          <div>
+               <p class="text-md text-white/50">Total Patients</p>
+               <p class="text-2xl text-white font-bold">{{ triage_count }}</p>
+          </div>
+
+          <div>
+               <img class="w-8 h-8" src="{% static 'user/images/patients.svg' %}" alt="patients">
+          </div>
+    </div>
+
+    <!-- High Priority -->
+    <div class="bg-white/10 rounded-xl shadow p-6 flex items-center justify-between">
+          <div>
+               <p class="text-md text-white/50">High Priority</p>
+               <p class="text-2xl text-red-400 font-bold">{{ high_prio_count }}</p>
+          </div>
+
+          <div>
+               <img class="w-8 h-8" src="{% static 'user/images/high.svg' %}" alt="patients">
+          </div>
+    </div>
+
+    <!-- Medium Priority -->
+    <div class="bg-white/10 rounded-xl shadow p-6 flex items-center justify-between">
+          <div>
+               <p class="text-md text-white/50">Medium Priority</p>
+               <p class="text-2xl text-amber-300 font-bold">{{ med_prio_count }}</p>
+          </div>
+
+          <div>
+               <img class="w-8 h-8" src="{% static 'user/images/medium.svg' %}" alt="patients">
+          </div>
+    </div>
+
+    <!-- Low Priority -->
+    <div class="bg-white/10 rounded-xl shadow p-6 flex items-center justify-between">
+          <div>
+               <p class="text-md text-white/50">Low Priority</p>
+               <p class="text-2xl text-cyan-300 font-bold">{{ low_prio_count }}</p>
+          </div>
+
+          <div>
+               <img class="w-8 h-8" src="{% static 'user/images/low.svg' %}" alt="patients">
+          </div>
+    </div>
+
 </div>
