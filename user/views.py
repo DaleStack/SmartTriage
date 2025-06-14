@@ -76,7 +76,9 @@ def dashboard_view(request):
         pain_level__lte=10
     ).count()
 
+    patient_list = TriageModel.objects.filter(assigned_doctor=user).order_by("-submitted_at")
 
-    return render(request, 'user/dashboard/dashboard.html', {'user':user, 'triage_count':triage_count, "low_prio_count": low_priority_count, "med_prio_count": med_priority_count, "high_prio_count":high_priority_count})
+
+    return render(request, 'user/dashboard/dashboard.html', {'user':user, 'triage_count':triage_count, "low_prio_count": low_priority_count, "med_prio_count": med_priority_count, "high_prio_count":high_priority_count, "patient_list":patient_list})
 
 
