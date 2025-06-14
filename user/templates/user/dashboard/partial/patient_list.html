@@ -11,15 +11,15 @@
                 </div>
 
                 <!-- Search Field -->
-                <form action="" method="get" class="flex items-center gap-2">
-                    <input class="bg-white text-black px-3 py-2 rounded-md w-full" type="text" placeholder="Search patient name...">
-                    <button class="button-outline">Search</button>
+                <form onsubmit="return false;" class="flex items-center gap-2">
+                    <input id="searchInput" class="bg-white text-black px-3 py-2 rounded-md w-full" type="text" placeholder="Search patient name...">
+                    <button class="button-outline" type="submit">Search</button>
                 </form>
 
                 <!-- Patient Cards -->
-                <div class="max-h-80 overflow-y-auto space-y-3">
+                <div id="patientlist" class="max-h-80 overflow-y-auto space-y-3">
                     {% for patient in patient_list %}
-                        <a href="#" class="block">
+                        <a href="#" class="block patient-card" data-name="{{ patient.full_name|lower }}" >
                             <div class="bg-white/10 hover:bg-white/30 p-4 rounded-lg shadow transition-all duration-200">
                                 <div class="mb-1 flex items-center space-x-2">
                                     <p class="font-semibold text-white text-sm md:text-lg">{{ patient.full_name }}</p>
@@ -59,3 +59,23 @@
         <p>Hello</p>
     </div>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("searchInput");
+    const patientCards = document.querySelectorAll(".patient-card");
+
+    searchInput.addEventListener("input", function () {
+        const query = this.value.toLowerCase();
+
+        patientCards.forEach(card => {
+            const name = card.getAttribute("data-name");
+            if (name.includes(query)) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    });
+});
+</script>
