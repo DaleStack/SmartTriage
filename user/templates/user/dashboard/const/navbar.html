@@ -9,7 +9,7 @@
 
     <div>
         <div class="relative inline-block">
-          <button onclick="toggleDropdown()" class="cursor-pointer underline transition-all duration-300 px-2 hover:bg-cyan-300/20 rounded">{{user.username}}</button>
+          <button onclick="toggleDropdown()" class="cursor-pointer underline transition-all duration-300 px-2 hover:bg-cyan-300/20 rounded">Dr. {{user.last_name}}</button>
           <div id="dropdownMenu" class="ch-dropdown ch-dropdown-end hidden">
             <div>
               <a href="{% url 'triage' %}" class="ch-dropdown-item">Triage View</a>
