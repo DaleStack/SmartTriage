@@ -10,16 +10,22 @@
                     <p class="text-white/50">AI-triaged patients awaiting review</p>
                 </div>
 
-                <!-- Search Field -->
-                <form onsubmit="return false;" class="flex items-center gap-2">
-                    <input id="searchInput" class="bg-white/20 text-white px-3 py-2 rounded-md w-full" type="text" placeholder="Search patient name...">
-                    <button class="button-outline" type="submit">Search</button> <!--CHANGE TO A DROPWDOWN FILTER-->
-                </form>
+                <!-- Search and Priority Filter -->
+                <div class="flex items-center gap-2">
+                    <input id="searchInput" class="bg-white/20 text-white px-3 py-2 rounded-md w-full" type="text" placeholder="Search patient name..." />
+                    
+                    <select id="priorityFilter" class="bg-white/20 text-white px-3 py-2 rounded-md">
+                        <option class="bg-black/80" value="All">All</option>
+                        <option class="bg-black/80" value="Low">Low</option>
+                        <option class="bg-black/80" value="Medium">Medium</option>
+                        <option class="bg-black/80" value="High">High</option>
+                    </select>
+                </div>
 
                 <!-- Patient Cards -->
                 <div id="patientlist" class="max-h-80 overflow-y-auto space-y-3">
                     {% for patient in patient_list %}
-                        <a href="#" class="block patient-card" data-name="{{ patient.full_name|lower }}" >
+                        <a href="#" class="block patient-card" data-name="{{ patient.full_name|lower }}" data-priority="{% if patient.pain_level <= 3 %}Low{% elif patient.pain_level <= 7 %}Medium{% else %}High{% endif %}">
                             <div class="bg-white/10 hover:bg-white/30 p-4 rounded-lg shadow transition-all duration-200">
                                 <div class="mb-1 flex items-center space-x-2">
                                     <p class="font-semibold text-white text-sm md:text-lg">{{ patient.full_name }}</p>
@@ -61,21 +67,30 @@
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-    const searchInput = document.getElementById("searchInput");
-    const patientCards = document.querySelectorAll(".patient-card");
+  const searchInput = document.getElementById("searchInput");
+  const priorityFilter = document.getElementById("priorityFilter");
+  const patientCards = document.querySelectorAll(".patient-card");
 
-    searchInput.addEventListener("input", function () {
-        const query = this.value.toLowerCase();
+  function filterPatients() {
+    const searchValue = searchInput.value.toLowerCase();
+    const selectedPriority = priorityFilter.value;
 
-        patientCards.forEach(card => {
-            const name = card.getAttribute("data-name");
-            if (name.includes(query)) {
-                card.style.display = "block";
-            } else {
-                card.style.display = "none";
-            }
-        });
+    patientCards.forEach(card => {
+      const name = card.dataset.name;
+      const priority = card.dataset.priority;
+
+      const matchesName = name.includes(searchValue);
+      const matchesPriority = selectedPriority === "All" || priority === selectedPriority;
+
+      if (matchesName && matchesPriority) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
     });
-});
+  }
+
+  searchInput.addEventListener("input", filterPatients);
+  priorityFilter.addEventListener("change", filterPatients);
 </script>
+
