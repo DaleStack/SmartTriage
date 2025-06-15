@@ -42,7 +42,10 @@ def generate_soap_note(data):
 
     model = genai.GenerativeModel('gemini-2.0-flash')
     response = model.generate_content(prompt)
-    return response.text.strip()
+    raw_soap = response.text.strip()
+
+    formatted_soap = mark_safe(markdown.markdown(raw_soap))
+    return formatted_soap
 
 
 # FORMS VIEW
