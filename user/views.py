@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from .forms import DoctorRegister, DoctorLogin
@@ -81,4 +81,9 @@ def dashboard_view(request):
 
     return render(request, 'user/dashboard/dashboard.html', {'user':user, 'triage_count':triage_count, "low_prio_count": low_priority_count, "med_prio_count": med_priority_count, "high_prio_count":high_priority_count, "patient_list":patient_list})
 
+@login_required
+def delete_triage(request, pk):
+    triage = get_object_or_404(TriageModel, pk=pk)
+    triage.delete()
+    return redirect('dashboard')
 

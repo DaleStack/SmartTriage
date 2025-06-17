@@ -38,7 +38,7 @@ def generate_soap_note(data):
 
     Format the response as a SOAP (Subjective, Objective, Assessment, Plan) note.
     Return the SOAP only, nothing else. Don't add any other sentences, just concise SOAP report.
-    Do not add bullet points. Keep the formatting consistent. For the "S" in SOAP, do not put the informartion in one line. Break it and add bold for every category. If language is in a local language, translate to english.
+    Do not add bullet points. Keep the formatting consistent. For the "S" in SOAP, do not put the informartion in one line. Break it and add bold for every category. If language is in a local language, translate to english. Note that this SOAP is being sent to a Doctor.
     """
 
     model = genai.GenerativeModel('gemini-2.0-flash')
