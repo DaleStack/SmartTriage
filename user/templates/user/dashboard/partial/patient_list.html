@@ -57,8 +57,9 @@
                                 <div id="modal-{{ patient.id }}" class="ch-modal !hidden" onclick="toggleModal('modal-{{ patient.id }}')">
                                     <div class="bg-black p-6 border border-white/30 rounded-md shadow-md w-11/12 sm:w-96 mx-auto" onclick="event.stopPropagation()">
                                         <h2 class="ch-modal-title !text-white">Are you sure you want to delete</h2>
+                                        <p class="text-white/50">Click outside to cancel</p>
                                         <p class="ch-modal-content !text-cyan-300">
-                                            {{ patient.full_name }}?
+                                           Patient: {{ patient.full_name }}?
                                         </p>
                                             <!-- 🗑️ Delete button -->
                                             <form method="POST" action="{% url 'delete-triage' patient.id %}" ">
