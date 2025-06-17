@@ -83,7 +83,8 @@ def dashboard_view(request):
 
 @login_required
 def delete_triage(request, pk):
-    triage = get_object_or_404(TriageModel, pk=pk)
+    triage = get_object_or_404(TriageModel, pk=pk, assigned_doctor=request.user)
     triage.delete()
+    messages.success(request, "Triage successfully deleted!")
     return redirect('dashboard')
 

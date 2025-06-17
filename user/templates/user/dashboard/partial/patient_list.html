@@ -25,36 +25,58 @@
                 <!-- Patient Cards -->
                 <div id="patientlist" class="max-h-80 overflow-y-auto space-y-3">
                     {% for patient in patient_list %}
-                        <a href="" class="block patient-card" data-name="{{ patient.full_name }}" data-priority="{% if patient.pain_level <= 3 %}Low{% elif patient.pain_level <= 7 %}Medium{% else %}High{% endif %}"
+                    <div class="block patient-card" 
+                        data-name="{{ patient.full_name }}" 
+                        data-priority="{% if patient.pain_level <= 3 %}Low{% elif patient.pain_level <= 7 %}Medium{% else %}High{% endif %}" 
                         data-soap="{{ patient.ai_soap|default:'No SOAP data available' }}">
-                            <div class="bg-white/10 hover:bg-white/30 p-4 rounded-lg shadow transition-all duration-200">
-                                <div class="mb-1 flex items-center space-x-2">
+
+                        <div class="bg-white/10 hover:bg-white/30 p-4 rounded-lg shadow transition-all duration-200">
+                            <div class="mb-1 flex items-center justify-between">
+                                <div class="flex items-center space-x-2">
                                     <p class="font-semibold text-white text-sm md:text-lg">{{ patient.full_name }}</p>
                                     {% if patient.pain_level <= 3 %}
                                         <div class="text-cyan-300 text-[12px] bg-cyan-300/10 border border-cyan-400/20 rounded-full px-1 flex items-center">
                                             <img class="h-4" src="{% static 'user/images/low.svg' %}" alt="">
-                                            <p >Low</p>
+                                            <p>Low</p>
                                         </div>
                                     {% elif patient.pain_level <= 7 %}
                                         <div class="text-amber-300 text-[12px] bg-amber-300/10 border border-amber-400/20 rounded-full px-1 flex items-center">
                                             <img class="h-4" src="{% static 'user/images/medium.svg' %}" alt="">
                                             <p>Medium</p>
                                         </div>
-                                    {% elif patient.pain_level <= 10 %}
+                                    {% else %}
                                         <div class="text-red-300 text-[12px] bg-red-300/10 border border-red-400/20 rounded-full px-1 flex items-center">
                                             <img class="h-4" src="{% static 'user/images/high.svg' %}" alt="">
                                             <p>High</p>
                                         </div>
-                                    {% else %}
-                                        <p class="text-white/50">Unknown Priority</p>
                                     {% endif %}
                                 </div>
-                                <p class="text-sm text-white/50">Pain level: {{ patient.pain_level }}</p>
+
+                                <!-- Modal -->
+                                <button onclick="toggleModal('modal-{{ patient.id }}')" class="text-white text-xs bg-red-500 hover:bg-red-600 px-2 py-1 rounded">Delete</button>
+                                <div id="modal-{{ patient.id }}" class="ch-modal !hidden" onclick="toggleModal('modal-{{ patient.id }}')">
+                                    <div class="bg-black p-6 border border-white/30 rounded-md shadow-md w-11/12 sm:w-96 mx-auto" onclick="event.stopPropagation()">
+                                        <h2 class="ch-modal-title !text-white">Are you sure you want to delete</h2>
+                                        <p class="ch-modal-content !text-cyan-300">
+                                            {{ patient.full_name }}?
+                                        </p>
+                                            <!-- 🗑️ Delete button -->
+                                            <form method="POST" action="{% url 'delete-triage' patient.id %}" ">
+                                                {% csrf_token %}
+                                                <button type="submit" class="text-white text-xs bg-red-500 hover:bg-red-600 px-2 py-1 rounded">
+                                                    Yes
+                                                </button>
+                                            </form>
+                                    </div>
+                                </div>
+
+                                
                             </div>
-                        </a>
-                    {% empty %}
-                        <p class="text-white/50">No patients in queue.</p>
-                    {% endfor %}
+                            <p class="text-sm text-white/50">Pain level: {{ patient.pain_level }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+
                 </div>
         </div>
     </div>
@@ -75,18 +97,20 @@
   const patientDetails = document.getElementById("patientDetails");
 
   // Display SOAP details on card click
-  function showSOAPDetails(event) {
-    event.preventDefault();
-    const card = event.currentTarget;
+function showSOAPDetails(event) {
+  // Prevent clicking from firing if delete button or form was clicked
+  if (event.target.tagName === "BUTTON" || event.target.closest("form")) return;
 
-    const name = card.dataset.name || "Unknown Patient";
-    const soap = card.dataset.soap || "No SOAP data available";
+  const card = event.currentTarget;
+  const name = card.dataset.name || "Unknown Patient";
+  const soap = card.dataset.soap || "No SOAP data available";
 
-    patientDetails.innerHTML = `
-      <h2 class="text-xl font-bold text-white">${name}</h2>
-      <div class="whitespace-pre-wrap text-white/80 mt-2">${soap}</div>
-    `;
-  }
+  patientDetails.innerHTML = `
+    <h2 class="text-xl font-bold text-white">${name}</h2>
+    <div class="whitespace-pre-wrap text-white/80 mt-2">${soap}</div>
+  `;
+}
+
 
   // Add click listeners
   patientCards.forEach(card => card.addEventListener("click", showSOAPDetails));
@@ -109,6 +133,11 @@
 
   searchInput.addEventListener("input", filterPatients);
   priorityFilter.addEventListener("change", filterPatients);
+
+function toggleModal(modalId) {
+  const modal = document.getElementById(modalId);
+  modal.classList.toggle("!hidden");
+}
 </script>
 
 
