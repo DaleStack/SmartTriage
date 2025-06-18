@@ -88,3 +88,7 @@ def delete_triage(request, pk):
     messages.success(request, "Triage successfully deleted!")
     return redirect('dashboard')
 
+
+def landing_page(request):
+    return render(request, 'user/landing_page/landing.html')
+

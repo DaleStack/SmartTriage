@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import register_view, login_view, logout_view, dashboard_view, delete_triage
+from .views import register_view, login_view, logout_view, dashboard_view, delete_triage, landing_page
 
 urlpatterns = [
     path('login/', login_view, name='login'),
@@ -12,5 +12,7 @@ urlpatterns = [
     #TRIAGE FUNCTIONS
     path('delete-triage/<int:pk>/', delete_triage, name='delete-triage'),
 
+    #LANDING PAGE
+    path('', landing_page, name='landing-page')
 
 ]
